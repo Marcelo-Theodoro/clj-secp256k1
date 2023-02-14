@@ -1,4 +1,4 @@
-(defproject com.github.Marcelo-Theodoro/clj-secp256k1 "0.1.0-SNAPSHOT"
+(defproject com.github.Marcelo-Theodoro/clj-secp256k1 "v0.3.0-alpha"
   :description "Wrapper around ACINQ/secp256k1-kmp bindings."
   :url "https://github.com/Marcelo-Theodoro/clj-secp256k1"
   :license {:name "MIT License"}
