@@ -17,3 +17,15 @@
   ^bytes
   [^bytes message ^bytes secret-key ^bytes aux-rand32]
   (.signSchnorr secp256k1 message secret-key aux-rand32))
+
+(defn create-public-key
+  "Create a uncompressed(65 bytes) public key for the given private key."
+  ^bytes
+  [^bytes private-key]
+  (.pubkeyCreate secp256k1 private-key))
+
+(defn compress-public-key
+  "Create a compressed public key(33 bytes) from a uncompressed one(65 bytes)."
+  ^bytes
+  [^bytes public-key]
+  (.pubKeyCompress secp256k1 public-key))
