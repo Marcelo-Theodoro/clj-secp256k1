@@ -14,18 +14,23 @@ Contributions for new functions and documentation are welcome.
 ```clojure
 (ns example.core
   (:require [clj-secp256k1.secp256k1 :as secp256k1]
-            [clj-secp256k1.utils.hex :as hex]))
+            [clj-secp256k1.utils.hex :as utils.hex]
+            [clj-secp256k1.utils.sha256 :as utils.sha256]))
 
-(defn -main []
-  (secp256k1/verify-schnorr 
-  (hex/decode "E907831F80848D1069A5371B402410364BDF1C5F8307B0084C55F1CE2DCA821525F66A4A85EA8B71E482A74F382D2CE5EBEEE8FDB2172F477DF4900D310536C0")
-  (hex/decode "0000000000000000000000000000000000000000000000000000000000000000")
-  (hex/decode "F9308A019258C31049344F85F89D5229B531C845836F99B08601F113BCE036F9")))
-  ;; true
+(def some-secret-key "c90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b14e5c9")
+(def some-public-key "dd308afec5777e13121fa72b9cc1b7cc0139715309b086c960e18fd969774eb8")
+(def some-aux-rand32 "c87aa53824b4d7ae2eb035a2b5bbbccc080e76cdc6d1692c4b0b62d798e6d906")
+
+(defn -main
+  []
+  (let [message      (-> (utils.sha256/generate "message that will be signed")
+                         utils.hex/decode)
+        secret-key   (utils.hex/decode some-secret-key)
+        public-key   (utils.hex/decode some-public-key)
+        aux-rand32   (utils.hex/decode some-aux-rand32)
+        sig          (secp256k1/sign-schnorr message secret-key aux-rand32)]
+    (assert (secp256k1/verify-schnorr sig message public-key))))
 ```
-
-TODO: More examples
-
 
 ## Installation
 
@@ -33,12 +38,12 @@ TODO: More examples
 
 * Leiningen
 ```clojure
-[com.github.Marcelo-Theodoro/clj-secp256k1 "0.1.0"]
+[com.github.Marcelo-Theodoro/clj-secp256k1 "0.2.0"]
 ```
 
 * deps.edn
 ```clojure
-com.github.Marcelo-Theodoro/clj-secp256k1 {:mvn/version "0.1.0"}
+com.github.Marcelo-Theodoro/clj-secp256k1 {:mvn/version "0.2.0"}
 ```
 
 ### Note for Apple Silicon Users
