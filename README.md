@@ -38,12 +38,12 @@ Contributions for new functions and documentation are welcome.
 
 * Leiningen
 ```clojure
-[com.github.Marcelo-Theodoro/clj-secp256k1 "0.2.0"]
+[com.github.Marcelo-Theodoro/clj-secp256k1 "0.3.0"]
 ```
 
 * deps.edn
 ```clojure
-com.github.Marcelo-Theodoro/clj-secp256k1 {:mvn/version "0.2.0"}
+com.github.Marcelo-Theodoro/clj-secp256k1 {:mvn/version "0.3.0"}
 ```
 
 ### Note for Apple Silicon Users
